@@ -1,0 +1,17 @@
+meta {
+  name: update_review
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{host}}/bolero/api/recensions
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  id: 1
+  est_gratuit: False
+  portail: Magazines of Journey
+}

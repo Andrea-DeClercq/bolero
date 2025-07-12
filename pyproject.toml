@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "bolero"
+version = "0.1.0"
+description = ""
+authors = ["Développeurs cairn <developpeurs@cairn.info>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11.2,<4.0"
+path-py = "^12.5.0"
+arrow = "^1.3.0"
+dynaconf = "^3.2.4"
+flask = "^3.0.2"
+flask-jwt-extended = "^4.6.0"
+flask-cors = "^4.0.0"
+inflection = "^0.5.1"
+marshmallow = "^3.21.1"
+marshmallow-enum = "^1.5.1"
+mysqlclient = "^2.2.4"
+pyicu = "^2.12"
+python-box = "^7.1.1"
+python-dateutil = "^2.9.0.post0"
+pytz = "^2024.1"
+requests = "^2.31.0"
+sentry-sdk = {extras = ["flask"], version = "^1.42.0"}
+sqlalchemy = "^1.4.18"
+sqlalchemy-utils = "^0.41.1"
+sqlservice = "^1.3.0"
+pycryptodome = "^3.20.0"
+tinydb = "^4.8.0"
+python-dotenv = "^1.0.1"
+gunicorn = "^21.2.0"
+marshmallow-sqlalchemy = "^1.0.0"
+pygments = "^2.17.2"
+flask-restx = "^1.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.3.0"
+pylint = "^3.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

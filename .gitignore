@@ -1,0 +1,59 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+/build
+eggs
+parts
+/bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+share
+test
+__pycache__
+include/python*
+local/include
+local/bin
+
+# Installer logs
+pip-log.txt
+pip-selfcheck.json
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Parasite
+.directory
+.spyderproject
+*.sublime-project
+*.sublime-workspace
+
+
+
+# On dégage les builds des docs
+doc-client/_build/
+.secrets.*
+
+.env
+.migration-version
+.littledb.json
+.vscode

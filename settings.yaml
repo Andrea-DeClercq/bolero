@@ -1,0 +1,164 @@
+# Variables supplémentaires fournies (https://www.dynaconf.com/dynamic/)
+#   * TEMPDIR : le dossier temporaire fournie par le système
+default:
+    ################################################################################################
+    # Configuration générique flask
+    ################################################################################################
+    DEBUG: false
+    # Apache gère mieux les envois de fichiers de cette manière
+    USE_X_SENDFILE: false
+    # Permet de remapper certaines variables d'environnement wsgi.
+    # Permet principalement de retrouver la vraie adresse IP derrière un proxy Nginx
+    # Les clés sont les nouvelles valeurs et les valeurs sont le header où on récupère l'info.
+    REMAP_WSGI_ENV: {}
+    INJECT_WSGI_ENV: {}
+
+    # Permet d'avoir le champ X-Fields sur la documentation faite avec Flask-RestX
+    RESTX_MASK_SWAGGER: false
+
+    ################################################################################################
+    # Les modules de l'api qui seront chargés
+    ################################################################################################
+    MODULES: []
+
+
+    ################################################################################################
+    # Gestion de l'authentification
+    ################################################################################################
+    # Où peut se trouver le token ? Il est conseillé de le placer dans le header dans un premier
+    # temps, puis quand l'authentification par token + cookie fonctionnera, rajouter la possibilité
+    # de le mettre en cookie.
+    # Les valeurs possibles sont 'headers', 'cookies', 'query_string', et 'json'.
+    # 'query_string' est déconseillé car il est facile de voir le token dans des logs apache et
+    # le navigateur enregistre le token dans l'url (dommageable pour les PC dans les universités
+    # par exemple).
+    # 'json' peut être autorisé mais est moins intéressant car il n'est pas lu dans les GET
+    JWT_TOKEN_LOCATION:
+        - headers
+    AUTH:
+        # Si à true, le token n'est pas chiffré/déchiffré et est utilisé tel quel pour récupérer
+        # l'utilisateur associé
+        jwt-is-identity: false
+        # Combien de temps avant expiration des tokens.
+        # Les paramètres nommés à fournir sont ceux de dateutil.relativedelta
+        expiration:
+            not-remember-me: { hours: 1 }
+            remember-me: { days: 7 }
+        cross-site:
+            common:
+                # Au bout de combien de temps une clé expire
+                expiration: 3600
+                # L'entrée qui sera enregistré dans le localStorage si l'utilisateur veut enregistrer
+                # le token a cet endroit
+                local-storage: null
+            # Au bout de combien de temps une clé expire
+            # Les différentes clés sont partagées entre royaumes
+            realms:
+                statistiques:
+                    key: null
+
+
+    ################################################################################################
+    # Gestion des logs
+    ################################################################################################
+    # Utilise la configuration des logs natifs python
+    #   https://docs.python.org/3/library/logging.config.html#logging-config-api
+    # Pour les couleurs disponibles sur ColorTermFormatter (il est possible de les utiliser avec le préfix bg) :
+    #   https://github.com/pygments/pygments/blob/master/pygments/console.py
+    ################################################################################################
+    LOGGING_CONFIG:
+        version: 1
+        formatters:
+            default:
+                format: >-
+                    %(_green_)s%(asctime)s%(_reset_)s |
+                    %(_bold_)s%(_clog_)s%(levelname)-8s%(_reset_)s |
+                    %(_cyan_)s%(name)s%(_reset_)s:%(_cyan_)s%(funcName)s%(_reset_)s:%(_cyan_)s%(lineno)d%(_reset_)s
+                    %(_clog_)s%(message)s%(_reset_)s
+                datefmt: '%Y/%m/%d %H:%M:%S'
+                class: 'core.services.loggers.ColorTermFormatter'
+        handlers:
+            wsgi:
+                class: logging.StreamHandler
+                stream: 'ext://flask.logging.wsgi_errors_stream'
+                formatter: default
+        root:
+            level: INFO
+            handlers:
+                - wsgi
+        loggers:
+            sqlalchemy:
+                level: ERROR
+
+
+    ################################################################################################
+    # Configuration pour le gestionnaire de log sentry
+    ################################################################################################
+    SENTRY:
+        enabled: false
+        init-options:
+            # Où envoyer les events sentry
+            dsn: null
+            # Envoyer les données personnelles
+            send_default_pii: True
+            # Les données récupérées depuis le corps HTTP
+            request_bodies: medium
+            # La fréquence de récupération de l'évaluation des performances
+            # traces_sample_rate: 0.2
+
+
+    ################################################################################################
+    # Configuration pour SQLService
+    # ----------------------------------------------------------------------------------------------
+    # https://sqlservice.readthedocs.io/en/latest/api.html#sqlservice.client.SQLClient
+    #
+    # Chaque entrée dans binds sera mélangée avec les entrées de SQL.common préfixées
+    # par un SQL_ pour faire correspondre aux variables attendues par SQLClient
+    #
+    # Si les binds sont des strings, elles seront automatiquement transformées en dict
+    ################################################################################################
+    SQL:
+        common:
+            sql_echo: false
+            pool_pre_ping: true
+        binds:
+            # propre à l'api
+            bolero:
+                automap: false
+                database_uri: sqlite://
+
+
+    ################################################################################################
+    # Configuration spécifique à cette api
+    ################################################################################################
+    #: Les exceptions levées dans le code python apparaissent dans l'api
+    #: au lieu d'un message d'erreur 500 générique
+    DEBUG_EXCEPTION: false
+    DEBUG_TRACEBACK_WITH_VARIABLE: false
+    API_PREFIX: "/api"
+
+    #: La timezone générale
+    TIMEZONE: Europe/Paris
+
+    # Où sera enregistré la base de données persistante
+    LITTLEDB: ".littledb.json"
+
+development:
+    AUTH:
+        cross-site:
+            common:
+                expiration: 0
+    MODULES:
+        - bolero
+
+    DEBUG: true
+    DEBUG_EXCEPTION: true
+    JWT_TOKEN_LOCATION:
+        - headers
+        - cookies
+        - query_string
+        - json
+    LOGGING_CONFIG:
+        loggers:
+            sqlalchemy.engine:
+                level: INFO

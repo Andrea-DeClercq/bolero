@@ -1,0 +1,5 @@
+deploy_main_python_on_cairnweb0:
+    script:
+        - ssh cairn@cairnweb0.octopuce.fr 'cd /home/cairn/projects/bolero && git fetch --prune && git reset --hard origin/main && /home/cairn/.local/bin/poetry install --without dev --sync && sudo /usr/bin/supervisorctl restart bolero'
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

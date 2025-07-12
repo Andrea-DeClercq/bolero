@@ -1,0 +1,17 @@
+meta {
+  name: edit_author_review
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{host}}/bolero/api/relations/auteurs-recensions
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  id: 1
+  id_auteur: 2
+  id_recension: 1
+}

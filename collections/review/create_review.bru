@@ -1,0 +1,23 @@
+meta {
+  name: create_review
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/bolero/api/recensions
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  est_gratuit: 0
+  titre: A Fresh Look at The Great Adventure
+  sous_titre: New Perspectives
+  portail: Magazine X
+  titre_revue: Journal of Adventures
+  annee_volume: 2024
+  date_parution: 2024-03-10
+  doi: 10.2000/rev123
+  url: https://example.com/reviewgreatadventure
+}

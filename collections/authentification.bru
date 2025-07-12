@@ -1,0 +1,20 @@
+meta {
+  name: authentification
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "identifier": "cairn",
+    "type": "username",
+    "password": "Yzgv36BeV7qY29",
+    "remember_me": true
+  }
+}

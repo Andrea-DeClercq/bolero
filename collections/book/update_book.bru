@@ -1,0 +1,18 @@
+meta {
+  name: update_book
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{host}}/bolero/api/ouvrages
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  id: 28268
+  titre: The Greatest Adventure
+  editeur: Adventurer Pub
+  volume: 33rd
+}

@@ -1,0 +1,16 @@
+meta {
+  name: create_relation
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/bolero/api/relations
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  idAuteur: 1
+  idOuvrage: 99
+}

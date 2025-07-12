@@ -1,0 +1,16 @@
+meta {
+  name: post_author
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/bolero/api/auteurs
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  nom: Doe
+  prenom: John
+}

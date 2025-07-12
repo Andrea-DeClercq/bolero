@@ -1,0 +1,17 @@
+meta {
+  name: edit_book_review
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{host}}/bolero/api/relations/ouvrages-recensions
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  id: 1
+  idOuvrage: 2
+  idRecension: 1
+}

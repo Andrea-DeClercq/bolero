@@ -1,0 +1,17 @@
+meta {
+  name: get_review
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/bolero/api/recensions?auteur_prenom=Serge&auteur_nom=Tisseron&titre=Les pièges
+  body: none
+  auth: none
+}
+
+params:query {
+  auteur_prenom: Serge
+  auteur_nom: Tisseron
+  titre: Les pièges
+}

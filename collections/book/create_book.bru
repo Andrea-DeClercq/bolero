@@ -1,0 +1,22 @@
+meta {
+  name: create_book
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/bolero/api/ouvrages
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  doi: 10.1000/xyz123
+  titre: The Great Adventure
+  sous_titre: A Journey Beyond
+  volume: 1st
+  annee_parution: 2024
+  editeur: Adventure Pub
+  ean: 9783161484100
+  url: https://example.com/greatadventure
+}

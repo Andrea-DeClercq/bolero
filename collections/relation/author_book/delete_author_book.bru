@@ -1,0 +1,19 @@
+meta {
+  name: delete_author_book
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{host}}/bolero/relations/auteurs-ouvrages
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjQ1OTMwMiwianRpIjoiMTc0NzYyNDUtMDY3Zi00N2RhLWFjYmEtNWEwNTc1N2UzODQxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwiaWRfcG9ydGFpbCI6ImNhaXJuIn0sIm5iZiI6MTc0MjQ1OTMwMiwiY3NyZiI6IjI1Yjk1ODEwLTg1MzItNDc0OC05M2RlLTNjM2NiODEwNWFhMiIsImV4cCI6MTc0MjQ2MjkwMn0.Tz-loNO4XDezxAINC7yWtJKKPRvPYsYHbcPw5ZU10s4
+}
+
+body:multipart-form {
+  id: 46662
+}
